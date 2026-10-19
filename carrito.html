@@ -1,0 +1,526 @@
+```html
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Carrito - Real Madrid CF</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f6fa;
+            color: #111827;
+        }
+
+        header {
+            background: #0b1f4b;
+            color: white;
+            padding: 20px;
+        }
+
+        .header-contenido {
+            max-width: 1100px;
+            margin: auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+        }
+
+        header h1 {
+            font-size: 24px;
+        }
+
+        header a {
+            color: white;
+            text-decoration: none;
+            background: #ffffff;
+            color: #0b1f4b;
+            padding: 10px 18px;
+            border-radius: 6px;
+            font-weight: bold;
+        }
+
+        main {
+            max-width: 1100px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        h2 {
+            margin-bottom: 25px;
+            color: #0b1f4b;
+        }
+
+        .carrito {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+        }
+
+        .producto {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+            padding: 20px 0;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .producto:last-child {
+            border-bottom: none;
+        }
+
+        .producto-info h3 {
+            color: #0b1f4b;
+            margin-bottom: 8px;
+        }
+
+        .producto-info p {
+            color: #555;
+        }
+
+        .cantidad {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .cantidad button {
+            border: none;
+            background: #0b1f4b;
+            color: white;
+            width: 32px;
+            height: 32px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 18px;
+        }
+
+        .cantidad span {
+            min-width: 25px;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .precio {
+            font-weight: bold;
+            font-size: 18px;
+            min-width: 90px;
+            text-align: right;
+        }
+
+        .eliminar {
+            background: #c62828;
+            color: white;
+            border: none;
+            padding: 9px 12px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .resumen {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 2px solid #0b1f4b;
+            text-align: right;
+        }
+
+        .resumen p {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .botones {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .boton {
+            border: none;
+            padding: 13px 20px;
+            border-radius: 7px;
+            cursor: pointer;
+            font-weight: bold;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .vaciar {
+            background: #777;
+            color: white;
+        }
+
+        .pagar {
+            background: #0b1f4b;
+            color: white;
+        }
+
+        .volver {
+            background: #e5e7eb;
+            color: #111827;
+        }
+
+        .vacio {
+            text-align: center;
+            padding: 50px 20px;
+        }
+
+        .vacio h3 {
+            margin-bottom: 15px;
+        }
+
+        .vacio a {
+            display: inline-block;
+            margin-top: 20px;
+            background: #0b1f4b;
+            color: white;
+            padding: 12px 20px;
+            border-radius: 6px;
+            text-decoration: none;
+        }
+
+        @media (max-width: 700px) {
+
+            .producto {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .precio {
+                text-align: left;
+            }
+
+            .resumen {
+                text-align: left;
+            }
+
+            .botones {
+                justify-content: flex-start;
+            }
+
+        }
+
+    </style>
+</head>
+
+<body>
+
+<header>
+
+    <div class="header-contenido">
+
+        <h1>REAL MADRID CF</h1>
+
+        <a href="index.html#tienda">
+            Seguir comprando
+        </a>
+
+    </div>
+
+</header>
+
+
+<main>
+
+    <h2>Tu carrito</h2>
+
+    <div
+        id="carrito"
+        class="carrito"
+    ></div>
+
+</main>
+
+
+<script>
+
+    let carrito = [];
+
+    try {
+
+        carrito =
+            JSON.parse(
+                localStorage.getItem("carrito")
+            ) || [];
+
+    } catch (error) {
+
+        carrito = [];
+
+    }
+
+
+    function guardarCarrito() {
+
+        localStorage.setItem(
+            "carrito",
+            JSON.stringify(carrito)
+        );
+
+    }
+
+
+    function mostrarCarrito() {
+
+        const contenedor =
+            document.getElementById("carrito");
+
+        if (!carrito.length) {
+
+            contenedor.innerHTML = `
+                <div class="vacio">
+
+                    <h3>
+                        Tu carrito está vacío
+                    </h3>
+
+                    <p>
+                        Todavía no has añadido ningún producto.
+                    </p>
+
+                    <a href="index.html#tienda">
+                        Ver tienda
+                    </a>
+
+                </div>
+            `;
+
+            return;
+        }
+
+
+        let html = "";
+
+
+        carrito.forEach(
+            function(producto, indice) {
+
+                const subtotal =
+                    producto.precio *
+                    producto.cantidad;
+
+
+                html += `
+
+                    <div class="producto">
+
+                        <div class="producto-info">
+
+                            <h3>
+                                ${producto.nombre}
+                            </h3>
+
+                            <p>
+                                ${producto.precio.toFixed(2)} € por unidad
+                            </p>
+
+                        </div>
+
+
+                        <div class="cantidad">
+
+                            <button
+                                type="button"
+                                onclick="cambiarCantidad(${indice}, -1)"
+                            >
+                                -
+                            </button>
+
+                            <span>
+                                ${producto.cantidad}
+                            </span>
+
+                            <button
+                                type="button"
+                                onclick="cambiarCantidad(${indice}, 1)"
+                            >
+                                +
+                            </button>
+
+                        </div>
+
+
+                        <div class="precio">
+
+                            ${subtotal.toFixed(2)} €
+
+                        </div>
+
+
+                        <button
+                            type="button"
+                            class="eliminar"
+                            onclick="eliminarProducto(${indice})"
+                        >
+                            Eliminar
+                        </button>
+
+                    </div>
+
+                `;
+
+            }
+        );
+
+
+        let total = 0;
+
+
+        carrito.forEach(
+            function(producto) {
+
+                total +=
+                    producto.precio *
+                    producto.cantidad;
+
+            }
+        );
+
+
+        html += `
+
+            <div class="resumen">
+
+                <p>
+                    Total:
+                    ${total.toFixed(2)} €
+                </p>
+
+
+                <div class="botones">
+
+                    <a
+                        href="index.html#tienda"
+                        class="boton volver"
+                    >
+                        Seguir comprando
+                    </a>
+
+
+                    <button
+                        type="button"
+                        class="boton vaciar"
+                        onclick="vaciarCarrito()"
+                    >
+                        Vaciar carrito
+                    </button>
+
+
+                    <button
+                        type="button"
+                        class="boton pagar"
+                        onclick="irAlPago()"
+                    >
+                        Ir al pago
+                    </button>
+
+                </div>
+
+            </div>
+
+        `;
+
+
+        contenedor.innerHTML = html;
+
+    }
+
+
+    function cambiarCantidad(
+        indice,
+        cantidad
+    ) {
+
+        carrito[indice].cantidad += cantidad;
+
+
+        if (
+            carrito[indice].cantidad <= 0
+        ) {
+
+            carrito.splice(indice, 1);
+
+        }
+
+
+        guardarCarrito();
+
+        mostrarCarrito();
+
+    }
+
+
+    function eliminarProducto(indice) {
+
+        carrito.splice(indice, 1);
+
+        guardarCarrito();
+
+        mostrarCarrito();
+
+    }
+
+
+    function vaciarCarrito() {
+
+        if (
+            !confirm(
+                "¿Seguro que quieres vaciar el carrito?"
+            )
+        ) {
+
+            return;
+
+        }
+
+
+        carrito = [];
+
+        guardarCarrito();
+
+        mostrarCarrito();
+
+    }
+
+
+    function irAlPago() {
+
+        if (!carrito.length) {
+
+            alert(
+                "El carrito está vacío."
+            );
+
+            return;
+
+        }
+
+
+        window.location.href =
+            "pago.html";
+
+    }
+
+
+    mostrarCarrito();
+
+</script>
+
+</body>
+</html>
+```

@@ -1,0 +1,922 @@
+```html
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Pago - Real Madrid CF</title>
+
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+
+        body {
+
+            font-family: Arial, sans-serif;
+
+            background: #f4f6fa;
+
+            color: #111827;
+
+        }
+
+
+        header {
+
+            background: #0b1f4b;
+
+            color: white;
+
+            padding: 20px;
+
+        }
+
+
+        .header-contenido {
+
+            max-width: 1100px;
+
+            margin: auto;
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            gap: 20px;
+
+        }
+
+
+        header h1 {
+
+            font-size: 24px;
+
+        }
+
+
+        header a {
+
+            background: white;
+
+            color: #0b1f4b;
+
+            padding: 10px 18px;
+
+            border-radius: 6px;
+
+            text-decoration: none;
+
+            font-weight: bold;
+
+        }
+
+
+        main {
+
+            max-width: 1100px;
+
+            margin: 40px auto;
+
+            padding: 0 20px;
+
+        }
+
+
+        .contenedor {
+
+            display: grid;
+
+            grid-template-columns:
+                1fr 1fr;
+
+            gap: 30px;
+
+        }
+
+
+        .caja {
+
+            background: white;
+
+            padding: 30px;
+
+            border-radius: 12px;
+
+            box-shadow:
+                0 5px 20px
+                rgba(0,0,0,0.08);
+
+        }
+
+
+        h2 {
+
+            color: #0b1f4b;
+
+            margin-bottom: 25px;
+
+        }
+
+
+        .campo {
+
+            margin-bottom: 18px;
+
+        }
+
+
+        .campo label {
+
+            display: block;
+
+            margin-bottom: 7px;
+
+            font-weight: bold;
+
+        }
+
+
+        .campo input {
+
+            width: 100%;
+
+            padding: 13px;
+
+            border: 1px solid #ccc;
+
+            border-radius: 6px;
+
+            font-size: 15px;
+
+        }
+
+
+        .fila {
+
+            display: grid;
+
+            grid-template-columns:
+                1fr 1fr;
+
+            gap: 15px;
+
+        }
+
+
+        .producto-resumen {
+
+            padding: 15px 0;
+
+            border-bottom:
+                1px solid #ddd;
+
+        }
+
+
+        .producto-resumen:last-child {
+
+            border-bottom: none;
+
+        }
+
+
+        .producto-nombre {
+
+            font-weight: bold;
+
+            color: #0b1f4b;
+
+        }
+
+
+        .producto-detalle {
+
+            margin-top: 5px;
+
+            color: #666;
+
+        }
+
+
+        .total {
+
+            margin-top: 20px;
+
+            padding-top: 20px;
+
+            border-top:
+                2px solid #0b1f4b;
+
+            display: flex;
+
+            justify-content: space-between;
+
+            font-size: 22px;
+
+            font-weight: bold;
+
+        }
+
+
+        .boton-pagar {
+
+            width: 100%;
+
+            border: none;
+
+            background: #0b1f4b;
+
+            color: white;
+
+            padding: 15px;
+
+            border-radius: 7px;
+
+            cursor: pointer;
+
+            font-size: 17px;
+
+            font-weight: bold;
+
+            margin-top: 15px;
+
+        }
+
+
+        .boton-pagar:hover {
+
+            background: #162f68;
+
+        }
+
+
+        .mensaje {
+
+            margin-top: 15px;
+
+            text-align: center;
+
+            font-weight: bold;
+
+        }
+
+
+        .vacio {
+
+            text-align: center;
+
+            padding: 50px 20px;
+
+        }
+
+
+        .vacio a {
+
+            display: inline-block;
+
+            margin-top: 20px;
+
+            background: #0b1f4b;
+
+            color: white;
+
+            padding: 12px 20px;
+
+            border-radius: 6px;
+
+            text-decoration: none;
+
+        }
+
+
+        .aviso {
+
+            background: #fff7ed;
+
+            border: 1px solid #fdba74;
+
+            color: #9a3412;
+
+            padding: 15px;
+
+            border-radius: 7px;
+
+            margin-bottom: 20px;
+
+            font-size: 14px;
+
+        }
+
+
+        @media (max-width: 750px) {
+
+            .contenedor {
+
+                grid-template-columns: 1fr;
+
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<header>
+
+    <div class="header-contenido">
+
+        <h1>
+            REAL MADRID CF
+        </h1>
+
+        <a href="carrito.html">
+            Volver al carrito
+        </a>
+
+    </div>
+
+</header>
+
+
+<main>
+
+
+    <div
+        id="contenidoPago"
+        class="contenedor"
+    >
+
+
+        <!-- DATOS DEL CLIENTE -->
+
+        <div class="caja">
+
+            <h2>
+                Datos del cliente
+            </h2>
+
+
+            <div class="aviso">
+
+                Esta es una pasarela de pago
+                de demostración para la
+                práctica de clase.
+
+                No se realizará ningún
+                cargo real.
+
+            </div>
+
+
+            <form id="formPago">
+
+
+                <div class="campo">
+
+                    <label for="nombre">
+                        Nombre completo
+                    </label>
+
+                    <input
+                        type="text"
+                        id="nombre"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="campo">
+
+                    <label for="email">
+                        Email
+                    </label>
+
+                    <input
+                        type="email"
+                        id="email"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="campo">
+
+                    <label for="tarjeta">
+                        Número de tarjeta
+                    </label>
+
+                    <input
+                        type="text"
+                        id="tarjeta"
+                        placeholder="0000 0000 0000 0000"
+                        maxlength="19"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="fila">
+
+
+                    <div class="campo">
+
+                        <label for="caducidad">
+                            Caducidad
+                        </label>
+
+                        <input
+                            type="text"
+                            id="caducidad"
+                            placeholder="MM/AA"
+                            maxlength="5"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="campo">
+
+                        <label for="cvv">
+                            CVV
+                        </label>
+
+                        <input
+                            type="password"
+                            id="cvv"
+                            placeholder="123"
+                            maxlength="4"
+                            required
+                        >
+
+                    </div>
+
+
+                </div>
+
+
+                <button
+                    type="submit"
+                    class="boton-pagar"
+                    id="botonPagar"
+                >
+                    Pagar ahora
+                </button>
+
+
+                <p
+                    id="mensaje"
+                    class="mensaje"
+                ></p>
+
+
+            </form>
+
+        </div>
+
+
+
+        <!-- RESUMEN DEL PEDIDO -->
+
+        <div class="caja">
+
+            <h2>
+                Resumen del pedido
+            </h2>
+
+
+            <div
+                id="resumenPedido"
+            ></div>
+
+
+        </div>
+
+
+    </div>
+
+
+</main>
+
+
+
+<!-- SUPABASE -->
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+
+<script>
+
+
+/* ==========================================
+   CONFIGURACIÓN SUPABASE
+   ========================================== */
+
+
+const SUPABASE_URL =
+    "https://rbqlhhvemtdjqllicssu.supabase.co";
+
+
+const SUPABASE_KEY =
+    "sb_publishable_w3g8OlmHtSXcv5_Iur1jyw_u_oQTmPM";
+
+
+const supabaseClient =
+    window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_KEY
+    );
+
+
+
+/* ==========================================
+   CARRITO
+   ========================================== */
+
+
+let carrito = [];
+
+
+try {
+
+    carrito =
+        JSON.parse(
+            localStorage.getItem("carrito")
+        ) || [];
+
+} catch (error) {
+
+    carrito = [];
+
+}
+
+
+
+/* ==========================================
+   MOSTRAR RESUMEN
+   ========================================== */
+
+
+function mostrarResumen() {
+
+
+    const resumen =
+        document.getElementById(
+            "resumenPedido"
+        );
+
+
+    if (!carrito.length) {
+
+        resumen.innerHTML = `
+
+            <div class="vacio">
+
+                <h3>
+                    Tu carrito está vacío
+                </h3>
+
+                <p>
+                    No hay productos para pagar.
+                </p>
+
+                <a href="index.html#tienda">
+                    Volver a la tienda
+                </a>
+
+            </div>
+
+        `;
+
+        document.getElementById(
+            "formPago"
+        ).style.display = "none";
+
+        return;
+
+    }
+
+
+    let total = 0;
+
+    let html = "";
+
+
+    carrito.forEach(
+        function(producto) {
+
+
+            const subtotal =
+                producto.precio *
+                producto.cantidad;
+
+
+            total += subtotal;
+
+
+            html += `
+
+                <div class="producto-resumen">
+
+                    <div class="producto-nombre">
+
+                        ${producto.nombre}
+
+                    </div>
+
+                    <div class="producto-detalle">
+
+                        ${producto.cantidad}
+                        unidad(es)
+                        ×
+                        ${producto.precio.toFixed(2)}
+                        €
+
+                        =
+                        ${subtotal.toFixed(2)}
+                        €
+
+                    </div>
+
+                </div>
+
+            `;
+
+        }
+    );
+
+
+    html += `
+
+        <div class="total">
+
+            <span>
+                Total
+            </span>
+
+            <span>
+                ${total.toFixed(2)} €
+            </span>
+
+        </div>
+
+    `;
+
+
+    resumen.innerHTML = html;
+
+}
+
+
+mostrarResumen();
+
+
+
+/* ==========================================
+   CALCULAR TOTAL
+   ========================================== */
+
+
+function calcularTotal() {
+
+
+    let total = 0;
+
+
+    carrito.forEach(
+        function(producto) {
+
+            total +=
+                producto.precio *
+                producto.cantidad;
+
+        }
+    );
+
+
+    return total;
+
+}
+
+
+
+/* ==========================================
+   PROCESAR PAGO
+   ========================================== */
+
+
+const formulario =
+    document.getElementById(
+        "formPago"
+    );
+
+
+formulario.addEventListener(
+    "submit",
+    async function(event) {
+
+
+        event.preventDefault();
+
+
+        if (!carrito.length) {
+
+            alert(
+                "El carrito está vacío."
+            );
+
+            return;
+
+        }
+
+
+        const nombre =
+            document.getElementById(
+                "nombre"
+            ).value.trim();
+
+
+        const email =
+            document.getElementById(
+                "email"
+            ).value.trim();
+
+
+        const tarjeta =
+            document.getElementById(
+                "tarjeta"
+            ).value.trim();
+
+
+        const caducidad =
+            document.getElementById(
+                "caducidad"
+            ).value.trim();
+
+
+        const cvv =
+            document.getElementById(
+                "cvv"
+            ).value.trim();
+
+
+        const mensaje =
+            document.getElementById(
+                "mensaje"
+            );
+
+
+        const boton =
+            document.getElementById(
+                "botonPagar"
+            );
+
+
+        if (
+            !nombre ||
+            !email ||
+            !tarjeta ||
+            !caducidad ||
+            !cvv
+        ) {
+
+            mensaje.textContent =
+                "Completa todos los campos.";
+
+            return;
+
+        }
+
+
+        boton.disabled = true;
+
+        boton.textContent =
+            "Procesando...";
+
+        mensaje.textContent =
+            "Guardando pedido...";
+
+
+        const total =
+            calcularTotal();
+
+
+        /*
+         * IMPORTANTE:
+         *
+         * No guardamos tarjeta,
+         * caducidad ni CVV.
+         *
+         * Solo guardamos los datos
+         * necesarios del pedido.
+         */
+
+
+        const { error } =
+            await supabaseClient
+                .from("pedidos")
+                .insert([
+                    {
+
+                        nombre:
+                            nombre,
+
+                        email:
+                            email,
+
+                        productos:
+                            JSON.stringify(
+                                carrito
+                            ),
+
+                        total:
+                            total
+
+                    }
+                ]);
+
+
+        if (error) {
+
+
+            console.error(
+                "ERROR SUPABASE:",
+                error
+            );
+
+
+            mensaje.textContent =
+                "Error al guardar el pedido.";
+
+            boton.disabled = false;
+
+            boton.textContent =
+                "Pagar ahora";
+
+
+            alert(
+                "No se ha podido guardar el pedido. Revisa la consola del navegador."
+            );
+
+
+            return;
+
+        }
+
+
+        /*
+         * PEDIDO GUARDADO CORRECTAMENTE
+         */
+
+
+        localStorage.removeItem(
+            "carrito"
+        );
+
+
+        mensaje.textContent =
+            "Pedido realizado correctamente.";
+
+
+        alert(
+            "Pedido realizado correctamente."
+        );
+
+
+        window.location.href =
+            "index.html";
+
+
+    }
+);
+
+</script>
+
+
+</body>
+
+</html>
+```

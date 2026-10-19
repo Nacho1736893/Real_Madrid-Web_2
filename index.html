@@ -1,0 +1,1032 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Real Madrid - Historia, Equipo y Tienda</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f5f5f5;
+            color: #222;
+        }
+
+        header {
+            background: #0b1f4b;
+            color: white;
+            padding: 18px 40px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        nav {
+            max-width: 1200px;
+            margin: auto;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .logo {
+            font-size: 25px;
+            font-weight: bold;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 20px;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        nav a:hover {
+            color: #d4af37;
+        }
+
+        .carrito-btn {
+            background: #d4af37;
+            color: #111;
+            border: none;
+            padding: 10px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            white-space: nowrap;
+        }
+
+        .hero {
+            min-height: 500px;
+
+            background:
+                linear-gradient(
+                    rgba(8, 24, 58, 0.8),
+                    rgba(8, 24, 58, 0.8)
+                ),
+                url("https://images.unsplash.com/photo-1579952363873-27f3bade9f55?auto=format&fit=crop&w=1600&q=80")
+                center/cover;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            text-align: center;
+            color: white;
+            padding: 30px;
+        }
+
+        .hero h1 {
+            font-size: 60px;
+            margin-bottom: 20px;
+        }
+
+        .hero p {
+            font-size: 22px;
+        }
+
+        section {
+            max-width: 1200px;
+            margin: auto;
+            padding: 70px 25px;
+        }
+
+        section h2 {
+            text-align: center;
+            color: #0b1f4b;
+            margin-bottom: 40px;
+            font-size: 35px;
+        }
+
+        .historia {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            line-height: 1.7;
+
+            box-shadow:
+                0 4px 15px rgba(0,0,0,0.08);
+        }
+
+        .trofeos,
+        .jugadores,
+        .productos {
+            display: grid;
+            gap: 25px;
+        }
+
+        .trofeos {
+            grid-template-columns: repeat(4, 1fr);
+        }
+
+        .jugadores {
+            grid-template-columns: repeat(4, 1fr);
+        }
+
+        .productos {
+            grid-template-columns: repeat(3, 1fr);
+        }
+
+        .card {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            text-align: center;
+
+            box-shadow:
+                0 4px 15px rgba(0,0,0,0.08);
+        }
+
+        .card h3 {
+            color: #0b1f4b;
+            margin-bottom: 10px;
+        }
+
+        .numero {
+            font-size: 38px;
+            font-weight: bold;
+            color: #d4af37;
+            margin-bottom: 10px;
+        }
+
+        .jugador img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+
+        .estadio {
+            background: #0b1f4b;
+            color: white;
+            border-radius: 12px;
+            padding: 45px;
+            text-align: center;
+        }
+
+        #tienda {
+            max-width: none;
+            background: #eeeeee;
+        }
+
+        .producto img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+
+        .precio {
+            color: #0b1f4b;
+            font-size: 24px;
+            font-weight: bold;
+            margin: 15px 0;
+        }
+
+        .producto button,
+        .formulario-contacto button {
+            border: none;
+            background: #0b1f4b;
+            color: white;
+
+            padding: 13px 20px;
+
+            border-radius: 6px;
+
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .producto button:hover,
+        .formulario-contacto button:hover {
+            background: #173d82;
+        }
+
+        .aviso {
+            position: fixed;
+            top: 90px;
+            right: 20px;
+
+            background: #0b1f4b;
+            color: white;
+
+            padding: 15px 20px;
+
+            border-radius: 8px;
+
+            z-index: 9999;
+
+            font-weight: bold;
+
+            box-shadow:
+                0 4px 15px rgba(0,0,0,0.25);
+        }
+
+        .formulario-contacto {
+            max-width: 700px;
+            margin: auto;
+
+            background: white;
+
+            padding: 30px;
+
+            border-radius: 12px;
+
+            box-shadow:
+                0 4px 15px rgba(0,0,0,0.08);
+        }
+
+        .formulario-contacto input,
+        .formulario-contacto textarea {
+            width: 100%;
+
+            padding: 12px;
+
+            margin-bottom: 15px;
+
+            border: 1px solid #ccc;
+
+            border-radius: 6px;
+
+            font-family: inherit;
+            font-size: 16px;
+        }
+
+        .formulario-contacto textarea {
+            min-height: 130px;
+            resize: vertical;
+        }
+
+        .mensaje {
+            margin-top: 15px;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .exito {
+            color: green;
+        }
+
+        .error {
+            color: #b22222;
+        }
+
+        footer {
+            background: #071633;
+            color: white;
+            text-align: center;
+            padding: 30px;
+        }
+
+        @media (max-width: 900px) {
+
+            nav ul {
+                display: none;
+            }
+
+            .trofeos,
+            .jugadores {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .productos {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .hero h1 {
+                font-size: 45px;
+            }
+        }
+
+        @media (max-width: 600px) {
+
+            .trofeos,
+            .jugadores,
+            .productos {
+                grid-template-columns: 1fr;
+            }
+
+            header {
+                padding: 15px 20px;
+            }
+
+            .hero h1 {
+                font-size: 35px;
+            }
+        }
+
+    </style>
+</head>
+
+<body>
+
+
+<header>
+
+    <nav>
+
+        <div class="logo">
+            REAL MADRID CF
+        </div>
+
+        <ul>
+
+            <li>
+                <a href="#historia">Historia</a>
+            </li>
+
+            <li>
+                <a href="#trofeos">Trofeos</a>
+            </li>
+
+            <li>
+                <a href="#jugadores">Jugadores</a>
+            </li>
+
+            <li>
+                <a href="#tienda">Tienda</a>
+            </li>
+
+            <li>
+                <a href="#contacto">Contacto</a>
+            </li>
+            <li>
+                <a href="registro.html">Crear cuenta</a>
+            </li>
+
+        </ul>
+
+
+        <button
+            class="carrito-btn"
+            onclick="window.location.href='carrito.html'"
+        >
+            Carrito (<span id="contadorCarrito">0</span>)
+        </button>
+
+        <a href="registro.html">
+</a>
+
+    </nav>
+
+</header>
+
+
+<!-- HERO -->
+
+<div class="hero">
+
+    <div>
+
+        <h1>
+            HALA MADRID
+        </h1>
+
+        <p>
+            Una historia llena de éxitos, pasión y fútbol.
+        </p>
+
+    </div>
+
+</div>
+
+
+<!-- HISTORIA -->
+
+<section id="historia">
+
+    <h2>
+        Historia del Real Madrid
+    </h2>
+
+    <div class="historia">
+
+        <p>
+            El Real Madrid Club de Fútbol fue fundado en 1902
+            y es uno de los clubes de fútbol más conocidos
+            del mundo.
+        </p>
+
+        <br>
+
+        <p>
+            A lo largo de su historia ha conseguido numerosos
+            títulos nacionales e internacionales y ha contado
+            con algunos de los mejores jugadores de la historia
+            del fútbol.
+        </p>
+
+        <br>
+
+        <p>
+            El estadio Santiago Bernabéu es su casa y se
+            encuentra en Madrid, España.
+        </p>
+
+    </div>
+
+</section>
+
+
+<!-- TROFEOS -->
+
+<section id="trofeos">
+
+    <h2>
+        Palmarés
+    </h2>
+
+    <div class="trofeos">
+
+        <div class="card">
+
+            <div class="numero">
+                15
+            </div>
+
+            <h3>
+                Champions League
+            </h3>
+
+            <p>
+                Copas de Europa conseguidas.
+            </p>
+
+        </div>
+
+
+        <div class="card">
+
+            <div class="numero">
+                36
+            </div>
+
+            <h3>
+                Ligas
+            </h3>
+
+            <p>
+                Títulos de Liga española.
+            </p>
+
+        </div>
+
+
+        <div class="card">
+
+            <div class="numero">
+                20
+            </div>
+
+            <h3>
+                Copa del Rey
+            </h3>
+
+            <p>
+                Copas del Rey conquistadas.
+            </p>
+
+        </div>
+
+
+        <div class="card">
+
+            <div class="numero">
+                8
+            </div>
+
+            <h3>
+                Mundiales de Clubes
+            </h3>
+
+            <p>
+                Títulos mundiales reconocidos.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- JUGADORES -->
+
+<section id="jugadores">
+
+    <h2>
+        Jugadores destacados
+    </h2>
+
+    <div class="jugadores">
+
+        <div class="card jugador">
+
+            <img
+                src="https://images.unsplash.com/photo-1579952363873-27f3bade9f55?auto=format&fit=crop&w=600&q=80"
+                alt="Fútbol"
+            >
+
+            <h3>
+                Grandes delanteros
+            </h3>
+
+            <p>
+                El Real Madrid ha contado con grandes goleadores.
+            </p>
+
+        </div>
+
+
+        <div class="card jugador">
+
+            <img
+                src="https://images.unsplash.com/photo-1553778263-73a83bab9b0c?auto=format&fit=crop&w=600&q=80"
+                alt="Jugador de fútbol"
+            >
+
+            <h3>
+                Grandes centrocampistas
+            </h3>
+
+            <p>
+                Jugadores que han marcado diferentes épocas.
+            </p>
+
+        </div>
+
+
+        <div class="card jugador">
+
+            <img
+                src="https://images.unsplash.com/photo-1518605368461-1ee3c7f7a5e1?auto=format&fit=crop&w=600&q=80"
+                alt="Estadio de fútbol"
+            >
+
+            <h3>
+                Grandes defensas
+            </h3>
+
+            <p>
+                Defensas históricos y referentes del club.
+            </p>
+
+        </div>
+
+
+        <div class="card jugador">
+
+            <img
+                src="https://images.unsplash.com/photo-1566577739112-5180d4bf9390?auto=format&fit=crop&w=600&q=80"
+                alt="Fútbol"
+            >
+
+            <h3>
+                Porteros
+            </h3>
+
+            <p>
+                Grandes guardametas han defendido la portería blanca.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ESTADIO -->
+
+<section>
+
+    <div class="estadio">
+
+        <h2 style="color:white;">
+            Santiago Bernabéu
+        </h2>
+
+        <p>
+            El Santiago Bernabéu es el estadio del Real Madrid
+            y uno de los recintos deportivos más conocidos
+            de España.
+        </p>
+
+    </div>
+
+</section>
+
+
+<!-- TIENDA -->
+
+<section id="tienda">
+
+    <h2>
+        Tienda del Real Madrid
+    </h2>
+
+
+    <div class="productos">
+
+
+        <!-- PRODUCTO 1 -->
+
+        <div class="card producto">
+
+            <img
+                src="https://images.unsplash.com/photo-1526232761682-d26e03ac148e?auto=format&fit=crop&w=700&q=80"
+                alt="Camiseta de fútbol"
+            >
+
+            <h3>
+                Camiseta Local 2025/26
+            </h3>
+
+            <p>
+                Camiseta blanca inspirada en la primera equipación.
+            </p>
+
+            <div class="precio">
+                99,99 €
+            </div>
+
+            <button
+                onclick="agregarAlCarrito(
+                    'Camiseta Local 2025/26',
+                    99.99
+                )"
+            >
+                Añadir al carrito
+            </button>
+
+        </div>
+
+
+        <!-- PRODUCTO 2 -->
+
+        <div class="card producto">
+
+            <img
+                src="https://images.unsplash.com/photo-1579952363873-27f3bade9f55?auto=format&fit=crop&w=700&q=80"
+                alt="Camiseta de fútbol"
+            >
+
+            <h3>
+                Camiseta Visitante
+            </h3>
+
+            <p>
+                Camiseta de visitante para aficionados del club.
+            </p>
+
+            <div class="precio">
+                89,99 €
+            </div>
+
+            <button
+                onclick="agregarAlCarrito(
+                    'Camiseta Visitante',
+                    89.99
+                )"
+            >
+                Añadir al carrito
+            </button>
+
+        </div>
+
+
+        <!-- PRODUCTO 3 -->
+
+        <div class="card producto">
+
+            <img
+                src="https://images.unsplash.com/photo-1553778263-73a83bab9b0c?auto=format&fit=crop&w=700&q=80"
+                alt="Camiseta de entrenamiento"
+            >
+
+            <h3>
+                Camiseta Entrenamiento
+            </h3>
+
+            <p>
+                Camiseta de entrenamiento para aficionados.
+            </p>
+
+            <div class="precio">
+                59,99 €
+            </div>
+
+            <button
+                onclick="agregarAlCarrito(
+                    'Camiseta Entrenamiento',
+                    59.99
+                )"
+            >
+                Añadir al carrito
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- CONTACTO -->
+
+<section id="contacto">
+
+    <h2>
+        Contacto
+    </h2>
+
+
+    <div class="formulario-contacto">
+
+<form action="guardar_mensaje.php" method="POST">
+
+    <input
+        type="text"
+        name="nombre"
+        placeholder="Tu nombre"
+        required
+    >
+
+    <input
+        type="email"
+        name="email"
+        placeholder="Tu email"
+        required
+    >
+
+    <textarea
+        name="comentario"
+        placeholder="Tu comentario"
+        required
+    ></textarea>
+
+    <button type="submit">
+        Enviar
+    </button>
+
+</form>
+
+    </div>
+
+</section>
+
+
+<footer>
+
+    <p>
+        Real Madrid CF - Práctica de clase
+    </p>
+
+</footer>
+
+
+<!-- SUPABASE -->
+
+```html
+<script>
+
+/* ==========================================
+   CARRITO
+   ========================================== */
+
+/*
+   Recuperamos el carrito guardado.
+   Si no existe, empezamos con un carrito vacío.
+*/
+
+let carrito = [];
+
+try {
+
+    carrito =
+        JSON.parse(
+            localStorage.getItem("carrito")
+        ) || [];
+
+} catch (error) {
+
+    carrito = [];
+
+}
+
+
+/* ==========================================
+   AÑADIR PRODUCTO
+   ========================================== */
+
+function agregarAlCarrito(nombre, precio) {
+
+    console.log("PRODUCTO AÑADIDO:", nombre, precio);
+
+
+    /*
+     * Buscamos si el producto ya existe.
+     */
+
+    let producto =
+        carrito.find(function(item) {
+
+            return item.nombre === nombre;
+
+        });
+
+
+    /*
+     * Si ya existe, aumentamos la cantidad.
+     */
+
+    if (producto) {
+
+        producto.cantidad =
+            producto.cantidad + 1;
+
+    }
+
+    /*
+     * Si no existe, lo añadimos.
+     */
+
+    else {
+
+        carrito.push({
+
+            nombre: nombre,
+
+            precio: Number(precio),
+
+            cantidad: 1
+
+        });
+
+    }
+
+
+    /*
+     * Guardamos el carrito.
+     */
+
+    localStorage.setItem(
+        "carrito",
+        JSON.stringify(carrito)
+    );
+
+
+    /*
+     * Actualizamos el número.
+     */
+
+    actualizarContador();
+
+
+    /*
+     * Mostramos aviso.
+     */
+
+    mostrarAviso(
+        nombre + " añadido al carrito"
+    );
+
+}
+
+
+/* ==========================================
+   CONTADOR
+   ========================================== */
+
+function actualizarContador() {
+
+    const contador =
+        document.getElementById(
+            "contadorCarrito"
+        );
+
+
+    if (!contador) {
+
+        console.error(
+            "No existe contadorCarrito"
+        );
+
+        return;
+    }
+
+
+    let cantidadTotal = 0;
+
+
+    carrito.forEach(function(producto) {
+
+        cantidadTotal =
+            cantidadTotal +
+            producto.cantidad;
+
+    });
+
+
+    contador.textContent =
+        cantidadTotal;
+
+
+    console.log(
+        "Productos en carrito:",
+        cantidadTotal
+    );
+
+}
+
+
+/* ==========================================
+   AVISO
+   ========================================== */
+
+function mostrarAviso(texto) {
+
+    const aviso =
+        document.createElement("div");
+
+
+    aviso.style.position =
+        "fixed";
+
+    aviso.style.top =
+        "90px";
+
+    aviso.style.right =
+        "20px";
+
+    aviso.style.background =
+        "#0b1f4b";
+
+    aviso.style.color =
+        "white";
+
+    aviso.style.padding =
+        "15px 20px";
+
+    aviso.style.borderRadius =
+        "8px";
+
+    aviso.style.zIndex =
+        "99999";
+
+    aviso.style.fontWeight =
+        "bold";
+
+    aviso.style.boxShadow =
+        "0 4px 15px rgba(0,0,0,0.25)";
+
+
+    aviso.textContent =
+        texto;
+
+
+    document.body.appendChild(
+        aviso
+    );
+
+
+    setTimeout(function() {
+
+        aviso.remove();
+
+    }, 2000);
+
+}
+
+
+/* ==========================================
+   INICIAR CONTADOR
+   ========================================== */
+
+actualizarContador();
+
+
+</script>
+</body>
+</html>
